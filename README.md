@@ -1,4 +1,3 @@
-appengine-helloworld-python
-===========================
+# loremquote
+Lorem placeholder generator with wise quotation - loremquote.appspot.com/api/confucious
 
-This is a simple Hello World application for Google App Engine (Python)
