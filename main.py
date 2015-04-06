@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright 2007 Google Inc.
+# Copyright 2015 Jing Studio.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,11 +15,31 @@
 # limitations under the License.
 #
 import webapp2
+import random
+
+
+CATEGORIES = {
+    'confucious': 'quotes/confucious.txt',
+    'wise': 'quotes/wise_quotes.txt'}
+
+
+def random_line(afile):
+    return random.choice(open(afile).readlines())
+
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.write('Hello world!')
 
+
+class APIHandler(webapp2.RequestHandler):
+    def get(self, category):
+        if category in CATEGORIES:
+            self.response.write(random_line(CATEGORIES[category]))
+        else:
+            self.response.write(random_line(CATEGORIES['confucious']))
+
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/api/([^/]+)', APIHandler),
 ], debug=True)
